@@ -1,0 +1,259 @@
+346/
+import java.util.Scanner;
+
+public class Algoritimo346 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String frase;
+        int op;
+
+        do {
+            System.out.println("\nMENU");
+            System.out.println("1 - Imprime o comprimento da frase");
+            System.out.println("2 - Imprime os dois primeiros e os dois últimos caracteres da frase");
+            System.out.println("3 - Imprime a frase espelhada");
+            System.out.println("4 - Termina o algoritmo");
+            System.out.print("OPÇÃO: ");
+            
+            op = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (op) {
+                case 1:
+                    System.out.print("\nDigite uma frase: ");
+                    frase = scanner.nextLine();
+                    System.out.println("Número de caracteres da frase: " + frase.length());
+                    break;
+
+                case 2:
+                    System.out.print("\nDigite uma frase: ");
+                    frase = scanner.nextLine();
+                    if (frase.length() >= 2) {
+                        String primeiros = frase.substring(0, 2);
+                        String ultimos = frase.substring(frase.length() - 2);
+                        System.out.println("Os dois primeiros caracteres: " + primeiros);
+                        System.out.println("Os dois últimos caracteres: " + ultimos);
+                    } else {
+                        System.out.println("Frase muito curta. Digite pelo menos 2 caracteres.");
+                    }
+                    break;
+
+                case 3:
+                    System.out.print("\nDigite uma frase: ");
+                    frase = scanner.nextLine();
+                    StringBuilder espelhada = new StringBuilder(frase).reverse();
+                    System.out.println("Frase espelhada: " + espelhada.toString());
+                    break;
+
+                case 4:
+                    System.out.println("\nFim do algoritmo.");
+                    break;
+
+                default:
+                    System.out.println("\nOpção não disponível.");
+                    break;
+            }
+
+            System.out.println("\n---------------------------\n");
+
+        } while (op != 4);
+
+        scanner.close();
+    }
+}
+
+
+348/ 
+import java.util.Scanner;
+
+public class Algoritimo348 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] nomes = new String[5];
+        double[] pr1 = new double[5];
+        double[] pr2 = new double[5];
+        double[] media = new double[5];
+
+        for (int i = 0; i < 5; i++) {
+            System.out.print("\nDigite o nome do " + (i + 1) + "º aluno: ");
+            nomes[i] = scanner.nextLine();
+
+            System.out.print("Digite a 1ª nota: ");
+            pr1[i] = scanner.nextDouble();
+
+            System.out.print("Digite a 2ª nota: ");
+            pr2[i] = scanner.nextDouble();
+
+            media[i] = (pr1[i] + pr2[i]) / 2;
+
+            scanner.nextLine(); 
+        }
+
+        System.out.println("\n\n\t\t\tRELATÓRIO FINAL");
+        System.out.println("-----------------------------------------------------");
+        System.out.printf("%-3s %-20s %-8s %-8s %-8s\n", "#", "Nome", "Nota 1", "Nota 2", "Média");
+        System.out.println("-----------------------------------------------------");
+
+        for (int i = 0; i < 5; i++) {
+            System.out.printf("%-3d %-20s %-8.2f %-8.2f %-8.2f\n", (i + 1), nomes[i], pr1[i], pr2[i], media[i]);
+        }
+
+        scanner.close();
+    }
+}
+
+
+351/
+import java.util.Scanner;
+
+public class Algoritimo351 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] nomes = new String[5];
+        int num;
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Nome " + (i + 1) + ": ");
+            nomes[i] = scanner.nextLine();
+        }
+        do {
+            System.out.print("\nDigite o número da pessoa (1 a 5): ");
+            num = scanner.nextInt();
+
+            if (num < 1 || num > 5) {
+                System.out.println("Número fora do intervalo. Tente novamente.");
+            }
+        } while (num < 1 || num > 5);
+        System.out.println("\nNome escolhido: " + nomes[num - 1]);
+
+        scanner.close();
+    }
+}
+
+354/
+import java.util.Scanner;
+
+public class Algoritimo354 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int[] num = new int[15];
+
+        // Entrada dos 15 números
+        for (int i = 0; i < 15; i++) {
+            System.out.print("Digite o " + (i + 1) + "º número: ");
+            num[i] = scanner.nextInt();
+        }
+
+        // Saída formatada
+        System.out.println("\nRELAÇÃO DOS NÚMEROS");
+        for (int i = 0; i < 15; i++) {
+            System.out.print((i + 1) + " - " + num[i]);
+            if (num[i] % 2 == 0) {
+                System.out.println(" é PAR");
+            } else {
+                System.out.println(" é ÍMPAR");
+            }
+        }
+
+        scanner.close();
+    }
+}
+
+
+356/
+import java.util.Scanner;
+
+public class VetorNotasAlunos {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Arrays
+        String[] nomes = new String[15];
+        String[] situacoes = new String[15];
+        double[] pr1 = new double[15];
+        double[] pr2 = new double[15];
+        int[] medias = new int[15];
+
+        // Entrada de dados
+        for (int i = 0; i < 15; i++) {
+            // Nome com no máximo 30 caracteres
+            while (true) {
+                System.out.print("\nDigite o nome do " + (i + 1) + "º aluno: ");
+                nomes[i] = scanner.nextLine();
+
+                if (nomes[i].length() <= 30) {
+                    break;
+                } else {
+                    System.out.println("Nome com no máximo 30 caracteres.");
+                }
+            }
+
+            // Preencher com espaços para tabulação uniforme
+            nomes[i] = String.format("%-30s", nomes[i]);
+
+            // Notas
+            System.out.print("Digite a PR1: ");
+            pr1[i] = scanner.nextDouble();
+
+            System.out.print("Digite a PR2: ");
+            pr2[i] = scanner.nextDouble();
+
+            // Limpa o buffer
+            scanner.nextLine();
+
+            // Média arredondada
+            double mediaReal = (pr1[i] + pr2[i]) / 2 + 0.0001;
+            medias[i] = (int) mediaReal;
+
+  
+            if (medias[i] >= 5) {
+                situacoes[i] = "AP";
+            } else {
+                situacoes[i] = "RP";
+            }
+        }
+
+        // Saída formatada
+        System.out.println("\n\n\t\t\tRELATÓRIO FINAL");
+        System.out.println("---------------------------------------------------------------");
+        System.out.printf("%-3s %-30s %-7s %-7s %-7s %-5s\n", "#", "Nome", "PR1", "PR2", "Média", "Sit");
+        System.out.println("---------------------------------------------------------------");
+
+        for (int i = 0; i < 15; i++) {
+            System.out.printf("%-3d %-30s %-7.2f %-7.2f %-7d %-5s\n",
+                    (i + 1), nomes[i], pr1[i], pr2[i], medias[i], situacoes[i]);
+        }
+
+        scanner.close();
+    }
+}
+
+
+358/ 
+
+
+360/
+
+
+362/
+
+
+370/
+
+
+394/ 
+
+
+398/ 
+
+
+400/
+
+
+413/ 
+
+
+419/
+
