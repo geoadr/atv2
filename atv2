@@ -1,67 +1,38 @@
 346/
-import java.util.Scanner;
+import java.util.*;
 
-public class Algoritimo346 {
+public class Tarefa346 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String frase;
+        Scanner sc = new Scanner(System.in);
         int op;
-
         do {
-            System.out.println("\nMENU");
-            System.out.println("1 - Imprime o comprimento da frase");
-            System.out.println("2 - Imprime os dois primeiros e os dois últimos caracteres da frase");
-            System.out.println("3 - Imprime a frase espelhada");
-            System.out.println("4 - Termina o algoritmo");
-            System.out.print("OPÇÃO: ");
+            System.out.println("\nMENU\n1 - Comprimento da frase\n2 - Dois primeiros e dois últimos\n3 - Frase espelhada\n4 - Sair");
+            System.out.print("OPCAO: ");
+            op = sc.nextInt(); sc.nextLine();
             
-            op = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (op) {
-                case 1:
-                    System.out.print("\nDigite uma frase: ");
-                    frase = scanner.nextLine();
-                    System.out.println("Número de caracteres da frase: " + frase.length());
-                    break;
-
-                case 2:
-                    System.out.print("\nDigite uma frase: ");
-                    frase = scanner.nextLine();
-                    if (frase.length() >= 2) {
-                        String primeiros = frase.substring(0, 2);
-                        String ultimos = frase.substring(frase.length() - 2);
-                        System.out.println("Os dois primeiros caracteres: " + primeiros);
-                        System.out.println("Os dois últimos caracteres: " + ultimos);
-                    } else {
-                        System.out.println("Frase muito curta. Digite pelo menos 2 caracteres.");
-                    }
-                    break;
-
-                case 3:
-                    System.out.print("\nDigite uma frase: ");
-                    frase = scanner.nextLine();
-                    StringBuilder espelhada = new StringBuilder(frase).reverse();
-                    System.out.println("Frase espelhada: " + espelhada.toString());
-                    break;
-
-                case 4:
-                    System.out.println("\nFim do algoritmo.");
-                    break;
-
-                default:
-                    System.out.println("\nOpção não disponível.");
-                    break;
-            }
-
-            System.out.println("\n---------------------------\n");
-
+            if (op == 1) {
+                System.out.print("Digite a frase: ");
+                String f = sc.nextLine();
+                System.out.println("Tamanho: " + f.length());
+            } 
+            else if (op == 2) {
+                System.out.print("Digite a frase: ");
+                String f = sc.nextLine();
+                if (f.length() >= 2) 
+                    System.out.println("Primeiros: " + f.substring(0,2) + " | Últimos: " + f.substring(f.length()-2));
+                else 
+                    System.out.println("Frase muito curta!");
+            } 
+            else if (op == 3) {
+                System.out.print("Digite a frase: ");
+                System.out.println("Espelhada: " + new StringBuilder(sc.nextLine()).reverse());
+            } 
+            else if (op == 4) System.out.println("Fim do algoritmo");
+            else System.out.println("Opção inválida");
         } while (op != 4);
-
-        scanner.close();
+        sc.close();
     }
 }
-
 
 348/ 
 import java.util.Scanner;
@@ -268,25 +239,474 @@ public class Algoritimo358 {
 
 
 360/
+import java.util.*;
+
+public class Horoscopo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[] ult = {20,19,20,20,21,20,22,22,22,22,21,21};
+        String[] sig = {"Capricórnio","Aquário","Peixes","Áries","Touro","Gêmeos",
+                        "Câncer","Leão","Virgem","Libra","Escorpião","Sagitário"};
+
+        while (true) {
+            System.out.print("Digite a data (ddmm) ou 9999 para sair: ");
+            int data = sc.nextInt();
+            if (data == 9999) break;
+            int d = data/100, m = data%100;
+            if (m<1||m>12||d<1||d>31) System.out.println("Data inválida!");
+            else System.out.println("Signo: " + (d>ult[m-1] ? sig[m%12] : sig[m-1]));
+        }
+    }
+}
 
 
 362/
+import java.util.*;
+
+public class Conjuntos {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[] v1 = new int[10];
+        int[] v2 = new int[20];
+        
+        System.out.println("Digite 10 números para o vetor 1:");
+        for (int i = 0; i < 10; i++) v1[i] = sc.nextInt();
+
+        System.out.println("Digite 20 números para o vetor 2:");
+        for (int i = 0; i < 20; i++) v2[i] = sc.nextInt();
+
+        // Usando Set para evitar repetição na saída
+        Set<Integer> comuns = new HashSet<>();
+        for (int x : v1) {
+            for (int y : v2) {
+                if (x == y) comuns.add(x);
+            }
+        }
+
+        if (comuns.isEmpty()) {
+            System.out.println("\nNão existem elementos comuns.");
+        } else {
+            System.out.println("\nElementos comuns:");
+            for (int n : comuns) System.out.print(n + " ");
+            System.out.println();
+        }
+    }
+}
 
 
 370/
+import java.util.*;
+
+public class Reservas {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Map<Integer, Integer> voos = new HashMap<>();
+
+        System.out.print("Quantos voos deseja cadastrar? ");
+        int n = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("Número do voo: ");
+            int num = sc.nextInt();
+            System.out.print("Lugares disponíveis: ");
+            int lugares = sc.nextInt();
+            voos.put(num, lugares);
+        }
+
+        while (true) {
+            System.out.print("\nDigite o número do voo desejado (0 para sair): ");
+            int escolha = sc.nextInt();
+            if (escolha == 0) break;
+
+            if (!voos.containsKey(escolha)) {
+                System.out.println("Não existe esse voo!");
+            } else if (voos.get(escolha) > 0) {
+                System.out.print("Digite o número da identidade do cliente: ");
+                String id = sc.next();
+                voos.put(escolha, voos.get(escolha) - 1);
+                System.out.println("Reserva confirmada para identidade " + id +
+                                   " no voo " + escolha);
+            } else {
+                System.out.println("Não existem mais lugares neste voo.");
+            }
+        }
+        System.out.println("Fim do programa.");
+        sc.close();
+    }
+}
 
 
 394/ 
+import java.util.Scanner;
+
+class Aluno {
+    String nome;
+    double nota1, nota2;
+    double media;
+}
+
+public class EscolaViva {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Aluno[] alunos = new Aluno[50];
+        for (int i = 0; i < 50; i++) alunos[i] = new Aluno();
+
+        boolean nomesCadastrados = false, notas1Cadastradas = false, notas2Cadastradas = false;
+        String opcao;
+
+        do {
+            System.out.println("\nMENU\n1-Nomes 2-Nota1 3-Nota2 4-Média 5-Listar 6-Sair");
+            System.out.print("Opção: ");
+            opcao = sc.nextLine();
+
+            switch (opcao) {
+                case "1":
+                    for (int i = 0; i < 50; i++) {
+                        String nome;
+                        do {
+                            System.out.print("Digite o " + (i + 1) + "º nome (até 30 caracteres): ");
+                            nome = sc.nextLine().toUpperCase();
+                        } while (nome.length() > 30);
+                        while (nome.length() < 30) nome += " ";
+                        alunos[i].nome = nome;
+                    }
+                    nomesCadastrados = true;
+                    break;
+
+                case "2":
+                    if (!nomesCadastrados) { System.out.println("Nomes não cadastrados!"); break; }
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("Digite a 1ª nota do " + (i + 1) + "º aluno: ");
+                        alunos[i].nota1 = sc.nextDouble();
+                    }
+                    sc.nextLine();
+                    notas1Cadastradas = true;
+                    break;
+
+                case "3":
+                    if (!nomesCadastrados) { System.out.println("Nomes não cadastrados!"); break; }
+                    for (int i = 0; i < 50; i++) {
+                        System.out.print("Digite a 2ª nota do " + (i + 1) + "º aluno: ");
+                        alunos[i].nota2 = sc.nextDouble();
+                    }
+                    sc.nextLine();
+                    notas2Cadastradas = true;
+                    break;
+
+                case "4":
+                    if (!nomesCadastrados || !notas1Cadastradas || !notas2Cadastradas) {
+                        System.out.println("Nem todos os dados estão cadastrados!");
+                    } else {
+                        for (Aluno a : alunos) a.media = (a.nota1 * 3 + a.nota2 * 7) / 10;
+                        System.out.println("Médias calculadas!");
+                    }
+                    break;
+
+                case "5":
+                    if (!nomesCadastrados || !notas1Cadastradas || !notas2Cadastradas) {
+                        System.out.println("Nem todos os dados estão cadastrados!");
+                    } else {
+                        System.out.println("\nNOME                           NOTA1   NOTA2   MÉDIA");
+                        for (Aluno a : alunos)
+                            System.out.printf("%-30s %.2f   %.2f   %.2f\n", a.nome, a.nota1, a.nota2, a.media);
+                    }
+                    break;
+
+                case "6": System.out.println("Saindo..."); break;
+                default: System.out.println("Opção inválida!");
+            }
+        } while (!opcao.equals("6"));
+
+        sc.close();
+    }
+}
 
 
 398/ 
 
+import java.util.*;
+
+class Produto {
+    int codigo, quantidade;
+    double preco;
+    Produto(int c, int q, double p) { codigo=c; quantidade=q; preco=p; }
+}
+
+public class FábricaQueijo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        List<Produto> produtos = new ArrayList<>();
+        double totalVendas = 0;
+
+        // --- Cadastro de produtos ---
+        while (produtos.size() < 50) {
+            System.out.print("Código do produto (-1 p/ terminar): ");
+            int c = sc.nextInt();
+            if (c == -1) break;
+            System.out.print("Quantidade: "); int q = sc.nextInt();
+            System.out.print("Preço: "); double p = sc.nextDouble();
+            produtos.add(new Produto(c, q, p));
+        }
+
+        // --- Vendas ---
+        while (true) {
+            System.out.print("\nCódigo do produto a vender (0 p/ sair): ");
+            int c = sc.nextInt();
+            if (c == 0) break;
+            System.out.print("Quantidade a vender: "); int q = sc.nextInt();
+
+            Produto prod = null;
+            for (Produto p : produtos) if (p.codigo == c) { prod = p; break; }
+
+            if (prod == null) System.out.println("Produto Não-Cadastrado!");
+            else if (prod.quantidade < q) System.out.println("Estoque Insuficiente!");
+            else {
+                prod.quantidade -= q;
+                double venda = q * prod.preco;
+                totalVendas += venda;
+                System.out.printf("Venda realizada: R$ %.2f\n", venda);
+            }
+        }
+
+        // --- Listagem final ---
+        produtos.sort((a,b) -> b.quantidade - a.quantidade);
+        System.out.printf("\nTotal vendido no dia: R$ %.2f\n", totalVendas);
+        System.out.println("Código\tQuantidade\tPreço");
+        for (Produto p : produtos) System.out.printf("%d\t%d\t\t%.2f\n", p.codigo, p.quantidade, p.preco);
+
+        sc.close();
+    }
+}
 
 400/
+import java.util.Scanner;
+
+class Quarto {
+    int leitos, ndias;
+    double preco, despesas;
+    String situacao; // "L"=livre, "A"=alugado, "R"=reservado
+    String nomeHospede, telefone, dataEntrada, dataSaida;
+
+    Quarto(int leitos, double preco) {
+        this.leitos = leitos;
+        this.preco = preco;
+        situacao = "L";
+        ndias = 0;
+        despesas = 0;
+        nomeHospede = "";
+        telefone = "";
+        dataEntrada = "XXXX";
+        dataSaida = "XXXX";
+    }
+}
+
+public class Tarefa400 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Quarto[] quartos = new Quarto[50];
+        boolean cadastrou = false;
+        int op;
+
+        do {
+            System.out.println("\nHotel Fazenda Sucesso");
+            System.out.println("1 - Cadastra quartos");
+            System.out.println("2 - Lista todos os quartos");
+            System.out.println("3 - Lista quartos ocupados");
+            System.out.println("4 - Aluguel/reserva quarto");
+            System.out.println("5 - Entrar despesas extras");
+            System.out.println("6 - Calcula despesa do quarto");
+            System.out.println("7 - Sai");
+            System.out.print("Opção: ");
+            op = sc.nextInt(); sc.nextLine();
+
+            switch(op){
+                case 1:
+                    if(cadastrou){
+                        System.out.println("Atenção: Dados já cadastrados");
+                        break;
+                    }
+                    for(int i=0;i<50;i++){
+                        System.out.print("Leitos do quarto " + (i+1) + ": ");
+                        int leitos = sc.nextInt();
+                        System.out.print("Preço do quarto: ");
+                        double preco = sc.nextDouble(); sc.nextLine();
+                        quartos[i] = new Quarto(leitos, preco);
+                    }
+                    cadastrou = true;
+                    break;
+
+                case 2:
+                    if(!cadastrou){ System.out.println("Escolha a opção 1 primeiro"); break; }
+                    for(int i=0;i<50;i++){
+                        Quarto q = quartos[i];
+                        System.out.println("\nQuarto " + (i+1));
+                        System.out.println("Situação: " + q.situacao);
+                        if(q.situacao.equals("A") || q.situacao.equals("R")){
+                            System.out.println("Nome: " + q.nomeHospede);
+                            System.out.println("Telefone: " + q.telefone);
+                        }
+                        System.out.println("Leitos: " + q.leitos);
+                        System.out.println("Preço: " + q.preco);
+                        System.out.println("Despesas: " + q.despesas);
+                        System.out.println("Entrada: " + q.dataEntrada);
+                        System.out.println("Saída: " + q.dataSaida);
+                        System.out.println("Número de dias: " + q.ndias);
+                        System.out.println("Pressione enter para continuar...");
+                        sc.nextLine();
+                    }
+                    break;
+
+                case 3:
+                    if(!cadastrou){ System.out.println("Escolha a opção 1 primeiro"); break; }
+                    for(int i=0;i<50;i++){
+                        Quarto q = quartos[i];
+                        if(!q.situacao.equals("L")){
+                            System.out.println("\nQuarto " + (i+1));
+                            System.out.println("Situação: " + q.situacao);
+                            System.out.println("Despesas: " + q.despesas);
+                            System.out.println("Entrada: " + q.dataEntrada);
+                            System.out.println("Saída: " + q.dataSaida);
+                            System.out.println("Número de dias: " + q.ndias);
+                            System.out.println("Pressione enter para continuar...");
+                            sc.nextLine();
+                        }
+                    }
+                    break;
+
+                case 4:
+                    if(!cadastrou){ System.out.println("Escolha a opção 1 primeiro"); break; }
+                    System.out.print("Aluguel(A) ou Reserva(R)? ");
+                    String tipo = sc.nextLine().toUpperCase();
+                    while(!tipo.equals("A") && !tipo.equals("R")){
+                        System.out.print("Resposta inválida. Digite A ou R: ");
+                        tipo = sc.nextLine().toUpperCase();
+                    }
+                    System.out.print("Número do quarto (1-50): ");
+                    int n = sc.nextInt(); sc.nextLine();
+                    while(n<1 || n>50){ System.out.print("Quarto inválido. Digite novamente: "); n=sc.nextInt(); sc.nextLine(); }
+                    Quarto q = quartos[n-1];
+                    if(q.situacao.equals("A")) System.out.println("Quarto ocupado!");
+                    else{
+                        q.situacao = tipo;
+                        System.out.print("Nome: "); q.nomeHospede=sc.nextLine();
+                        System.out.print("Telefone: "); q.telefone=sc.nextLine();
+                        System.out.print("Data entrada: "); q.dataEntrada=sc.nextLine();
+                        System.out.print("Data saída: "); q.dataSaida=sc.nextLine();
+                        System.out.print("Número de dias: "); q.ndias=sc.nextInt(); sc.nextLine();
+                        if(tipo.equals("A")) q.despesas=0;
+                    }
+                    break;
+
+                case 5:
+                    if(!cadastrou){ System.out.println("Escolha a opção 1 primeiro"); break; }
+                    System.out.print("Número do quarto (1-50): "); int qd = sc.nextInt(); sc.nextLine();
+                    while(qd<1||qd>50){ System.out.print("Quarto inválido. Digite novamente: "); qd=sc.nextInt(); sc.nextLine(); }
+                    System.out.print("Valor da despesa: "); double val = sc.nextDouble(); sc.nextLine();
+                    quartos[qd-1].despesas += val;
+                    break;
+
+                case 6:
+                    if(!cadastrou){ System.out.println("Escolha a opção 1 primeiro"); break; }
+                    System.out.print("Número do quarto (1-50): "); int qa = sc.nextInt(); sc.nextLine();
+                    while(qa<1||qa>50){ System.out.print("Quarto inválido. Digite novamente: "); qa=sc.nextInt(); sc.nextLine(); }
+                    Quarto qaObj = quartos[qa-1];
+                    double total = qaObj.preco + qaObj.despesas;
+                    System.out.println("Valor total a pagar: R$ " + total);
+                    // Resetar quarto
+                    qaObj.situacao="L"; qaObj.despesas=0; qaObj.ndias=0; qaObj.dataEntrada="XXXX"; qaObj.dataSaida="XXXX"; qaObj.nomeHospede=""; qaObj.telefone="";
+                    break;
+
+                case 7: System.out.println("Saindo..."); break;
+                default: System.out.println("Opção inválida!");
+            }
+
+        }while(op!=7);
+
+        sc.close();
+    }
+}
 
 
 413/ 
+import java.util.Scanner;
+
+public class Tarefa413 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[][] matriz = new int[5][5];
+        int soma = 0;
+
+        // Leitura da matriz
+        for(int l=0; l<5; l++){
+            for(int c=0; c<5; c++){
+                System.out.print("Digite o elemento [" + l + "," + c + "]: ");
+                matriz[l][c] = sc.nextInt();
+            }
+        }
+
+        // Imprimir matriz
+        System.out.println("\nToda a matriz:");
+        for(int l=0; l<5; l++){
+            for(int c=0; c<5; c++){
+                System.out.print(matriz[l][c] + "\t");
+            }
+            System.out.println();
+        }
+
+        // Soma dos quadrados dos números ímpares abaixo da diagonal secundária
+        for(int l=0; l<5; l++){
+            for(int c=0; c<5; c++){
+                if(c + l > 4 && matriz[l][c] % 2 != 0){ // abaixo da DS e ímpar
+                    soma += matriz[l][c] * matriz[l][c];
+                }
+            }
+        }
+
+        System.out.println("\nRaiz quadrada da soma dos quadrados dos números ímpares abaixo da diagonal secundária: " + Math.sqrt(soma));
+        sc.close();
+    }
+}
 
 
 419/
+import java.util.Scanner;
+
+public class MatrizDiferenca {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[][] A = new int[5][5];
+        int[][] B = new int[5][5];
+        int[][] DIF = new int[5][5];
+
+        // Leitura da matriz A
+        System.out.println("Digite os elementos da matriz A:");
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.print("A[" + i + "][" + j + "]: ");
+                A[i][j] = sc.nextInt();
+            }
+        }
+
+        // Leitura da matriz B e cálculo da diferença
+        System.out.println("Digite os elementos da matriz B:");
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.print("B[" + i + "][" + j + "]: ");
+                B[i][j] = sc.nextInt();
+                DIF[i][j] = A[i][j] - B[i][j];
+            }
+        }
+
+        // Impressão da matriz diferença
+        System.out.println("\nMATRIZ DIFERENÇA:");
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.print(DIF[i][j] + "\t");
+            }
+            System.out.println();
+        }
+
+        sc.close();
+    }
+}
 
